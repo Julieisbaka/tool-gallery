@@ -1,6 +1,16 @@
 const express = require('express');
 const router = express.Router();
 const toolController = require('../controllers/toolController');
+const rateLimit = require('express-rate-limit');
+
+// Set up rate limiter: maximum of 100 requests per 15 minutes
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // max 100 requests per windowMs
+});
+
+// Apply rate limiter to all routes
+router.use(limiter);
 
 // Route to create a new tool
 router.post('/', toolController.createTool);
