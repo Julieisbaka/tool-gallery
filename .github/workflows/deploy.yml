@@ -20,14 +20,17 @@ jobs:
         with:
           node-version: '18'
           cache: 'npm'
+          cache-dependency-path: '**/package.json'  # Use package.json instead of lock file for caching
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install  # Changed from npm ci to npm install
+        working-directory: .  # Ensure we're in the correct directory
 
       - name: Build
         run: npm run build
         env:
           CI: false
+        working-directory: .  # Ensure we're in the correct directory
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
