@@ -1,0 +1,36 @@
+{
+  "name": "tool-gallery",
+  "version": "1.0.0",
+  "description": "A gallery website for creating and sharing tools with GitHub authentication and storage.",
+  "main": "src/server/server.js",
+  "scripts": {
+    "start": "node src/server/server.js",
+    "client": "npm start --prefix src/client",
+    "build": "npm run build --prefix src/client",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.10.9",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "passport": "^0.4.1",
+    "passport-github": "^1.1.0",
+    "body-parser": "^1.19.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/tool-gallery.git"
+  },
+  "keywords": [
+    "gallery",
+    "tools",
+    "github",
+    "authentication"
+  ],
+  "author": "Your Name",
+  "license": "MIT"
+}
