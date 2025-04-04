@@ -38,7 +38,14 @@ exports.getToolById = async (req, res) => {
 // Update a tool by ID
 exports.updateTool = async (req, res) => {
     try {
-        const tool = await Tool.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        const updateData = req.body;
+        // Validate updateData against the Tool schema
+        const validFields = ['name', 'description', 'price']; // Example fields
+        const isValid = Object.keys(updateData).every(key => validFields.includes(key));
+        if (!isValid) {
+            return res.status(400).json({ message: 'Invalid update data' });
+        }
+        const tool = await Tool.findByIdAndUpdate(req.params.id, updateData, { new: true });
         if (!tool) {
             return res.status(404).json({ message: 'Tool not found' });
         }
