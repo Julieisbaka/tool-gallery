@@ -20,20 +20,24 @@ jobs:
         with:
           node-version: '18'
           cache: 'npm'
-          cache-dependency-path: '**/package.json'  # Use package.json instead of lock file for caching
+          cache-dependency-path: '**/package.json'
 
-      - name: Install dependencies
-        run: npm install  # Changed from npm ci to npm install
-        working-directory: .  # Ensure we're in the correct directory
+      - name: Generate lock file and install dependencies
+        run: |
+          # Clean install to generate a fresh package-lock.json
+          npm install --package-lock-only
+          # Now use the generated lock file for a clean install
+          npm ci
+        working-directory: .
 
       - name: Build
         run: npm run build
         env:
           CI: false
-        working-directory: .  # Ensure we're in the correct directory
+        working-directory: .
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: build # The folder the action should deploy
-          branch: gh-pages # The branch the action should deploy to
+          folder: build
+          branch: gh-pages
